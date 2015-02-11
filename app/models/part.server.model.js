@@ -5,15 +5,24 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
-
+/*
+	schema for individual parts
+*/
 var partSchema = new Schema({
-	Serial: {
+	serialNmbr: {
 		type: String,
 		default: '',
-		required: 'Serial cannot be blank'
+		trim: true
+	},
+	firmWare: {
+		type: String,
+		default: '',
+		trim: true
 	},
 	Type: {
-		type: Number,
+		type: Schema.ObjectId,
+		ref: PartType,
+		required: 'Part must have a type'
 	}
 });
 

@@ -7,27 +7,50 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * part's schemas
+ * Part type schema
  */
 var partTypeSchema = new Schema({
-	Title: {
+	Category: {
 		type: String,
 		default: 'N/A',
 		trim: true,
-		required: 'Title cannot be blank'
+		required: 'Category can not be blank'
 	},
-	Category: {
+	partName: {
 		type: String,
 		default: '',
 		trim: true
+		required: 'Part must have a name'
 	},
-	firmWare: {
+	Vendor: {
 		type: String,
-		default: '',
+		default: 'N/A',
 		trim: true
 	},
-	Quantity: {
-		type: Number
+	vndrPartNmbr: {
+		type: String,
+		default: 'N/A',
+		trim: true
+	},
+	Manufacturer: {
+		type: String,
+		default: 'N/A',
+		trim: true
+	},
+	mnfPartNmbr: {
+		type: String,
+		default: 'N/A',
+		trim true
+	},
+	price: {
+		type: Number,
+		default: 0,
+		required: 'Part must have a price'
+	},
+	amount: {
+		type: Number,
+		default: 1
+		required: 'Part must have an amount'
 	}
 });
 
