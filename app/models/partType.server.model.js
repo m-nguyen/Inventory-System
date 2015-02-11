@@ -7,28 +7,29 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Article Schema
+ * part's schemas
  */
-var ArticleSchema = new Schema({
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	title: {
+var partTypeSchema = new Schema({
+	Title: {
 		type: String,
-		default: '',
+		default: 'N/A',
 		trim: true,
 		required: 'Title cannot be blank'
 	},
-	content: {
+	Category: {
 		type: String,
 		default: '',
 		trim: true
 	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
+	firmWare: {
+		type: String,
+		default: '',
+		trim: true
+	},
+	Quantity: {
+		type: Number
 	}
 });
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('PartType', partTypeSchema);
+
