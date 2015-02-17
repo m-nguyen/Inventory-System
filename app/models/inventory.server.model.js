@@ -10,11 +10,11 @@ var mongoose = require('mongoose'),
 */
 
 var InventorySchema = new Schema({
-	Type: {
-		type: Schema.ObjectId,
-		ref: Parts,
-		required: 'You need to choose a part type'
-	},
+    Type: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PartType',
+        required: 'You need to choose a part type'
+    },
 	quantity: {
 		type: Number,
 		default: 0
