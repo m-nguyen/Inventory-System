@@ -6,18 +6,16 @@ var mongoose    = require('mongoose'),
     Inventory   = mongoose.model('Inventory'),
     data        = require('../partType.json');
 
+var err, el;
+function errorHandler(err, el){
+    if (err) console.log(err);
+    //else console.log(el + ' added to database');
+}
+
 /*Check if PartType is already populated */
 PartType.count({}, function(err, count){
     if (err) return console.log(err);
-
     if(!count){
-        var err, el;
-
-        function errorHandler(err, el){
-            if (err) console.log(err);
-            //else console.log(el + ' added to database');
-        }
-
         /* For each partType */
         for(var i = 0; i < data.length; i++ ){
             /* Save partType */
