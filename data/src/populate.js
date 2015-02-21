@@ -12,6 +12,20 @@ function errorHandler(err, el){
     //else console.log(el + ' added to database');
 }
 
+/*Remove Inventories collection from mongo*/
+/*This is temporarily here to remove inventories from your local machine*/
+/*Also changes PartType amount attribute*/
+Inventory.count({}, function(err, count) {
+    if(count){
+        Inventory.remove({}, function(err){
+            console.log('Inventory collection removed...');
+        });
+        PartType.remove({}, function(err) {
+            console.log('Changing PartType attribute from amount to quantity...');
+        });
+    }
+});
+
 /*Check if PartType is already populated */
 PartType.count({}, function(err, count){
     if (err) return console.log(err);
@@ -21,9 +35,6 @@ PartType.count({}, function(err, count){
             /* Save partType */
             var partType = new PartType(data[i]);
             partType.save(errorHandler(err, partType));
-            /* Save partType to inventory */
-            var inventory = new Inventory({ Type: partType._id, quantity: 0});
-            inventory.save(errorHandler(err, inventory));
         }
         console.log('MongoDB has been populated...');
     } else {

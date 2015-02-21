@@ -1,7 +1,7 @@
 'use strict';
 
 // Configuring the Articles module
-angular.module('articles').run(['Menus',
+angular.module('parttypes').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
 		Menus.addMenuItem('topbar', 'Articles', 'articles', 'dropdown', '/articles(/create)?');

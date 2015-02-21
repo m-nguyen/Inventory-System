@@ -47,7 +47,7 @@ var partTypeSchema = new Schema({
 		default: 0,
 		required: 'Part must have a price'
 	},
-	amount: {
+	quantity: {
 		type: Number,
 		default: 1,
 		required: 'Part must have an amount'

@@ -6,7 +6,7 @@
 var partType = require('../../app/controllers/partType.server.controller');
 
 module.exports = function(app) {
-	// Article Routes
+	// PartType Routes
 	app.route('/parts')
 		.get(partType.list)
 		.post(partType.create);

@@ -37,17 +37,17 @@ exports.read = function(req, res) {
  * Update a PartType
  */
 exports.update = function(req, res) {
-	var PartType = req.PartType;
+	var partType = req.PartType;
 
-	PartType = _.extend(PartType, req.body);
+	partType = _.extend(partType, req.body);
 
-	PartType.save(function(err) {
+	partType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
@@ -56,15 +56,15 @@ exports.update = function(req, res) {
  * Delete an PartType
  */
 exports.delete = function(req, res) {
-	var PartType = req.PartType;
+	var partType = req.PartType;
 
-	PartType.remove(function(err) {
+	partType.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
@@ -73,13 +73,16 @@ exports.delete = function(req, res) {
  * List of PartTypes
  */
 exports.list = function(req, res) {
-	PartType.find().sort('-created')/*.populate('user', 'displayName')*/.exec(function(err, PartTypes) {
+    /**
+     * This needs to be fixed
+     */
+	PartType.find().sort('-created')/*.populate('user', 'displayName')*/.exec(function(err, partTypes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartTypes);
+			res.json(partTypes);
 		}
 	});
 };
@@ -95,14 +98,14 @@ exports.PartTypeByID = function(req, res, next, id) {
 		});
 	}
 
-	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, PartType) {
+	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, partType) {
 		if (err) return next(err);
-		if (!PartType) {
+		if (!partType) {
 			return res.status(404).send({
   				message: 'PartType not found'
   			});
 		}
-		req.PartType = PartType;
+		req.PartType = partType;
 		next();
 	});
 };
