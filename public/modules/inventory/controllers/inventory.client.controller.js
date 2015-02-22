@@ -1,79 +1,65 @@
 'use strict';
 
 angular.module('inventory').controller('InventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory',
-    function($scope, $stateParams, $location, Authentication, Inventory) {
-        $scope.authentication = Authentication;
+	function($scope, $stateParams, $location, Authentication, Inventory) {
+		$scope.authentication = Authentication;
 
-        $scope.create = function() {
-            var partType = new Inventory({
-                category: this.category,
-                partName: this.partName,
-                vendor: this.vendor,
-                vndrPartNmbr: this.vndrPartNmbr,
-                manufacturer: this.manufacturer,
-                mnfPartNmbr: this.mnfPartNmbr,
-                price: this.price,
-                GX5_amount: this.GX5_amount,
-                GX35_amount: this.GX35_amount,
-                quantity: this.quantity
-            });
-            partType.$save(function(response) {
-                $location.path('inventory/' + response._id);
-                $scope.category = '';
-                $scope.partName = '';
-                $scope.vendor = '';
-                $scope.vndrPartNmbr = '';
-                $scope.manufacturer = '';
-                $scope.mnfPartNmbr = '';
-                $scope.price = '';
-                $scope.GX5_amount = '';
-                $scope.GX35_amount = '';
-                $scope.quantity = '';
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
+		$scope.create = function() {
+			var partType = new Inventory($scope.partType);
+			partType.$save(function(response) {
+				$location.path('inventory/' + response._id + '/edit');
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
-        $scope.remove = function(partType) {
-            if (partType) {
-                partType.$remove();
+		$scope.remove = function(partType) {
+			if (partType) {
+				partType.$remove();
 
-                for (var i in $scope.inventory) {
-                    if ($scope.inventory[i] === partType) {
-                        $scope.inventory.splice(i, 1);
-                    }
-                }
-            } else {
-                $scope.partType.$remove(function() {
-                    $location.path('inventory');
-                });
-            }
-        };
+				for (var i in $scope.inventory) {
+					if ($scope.inventory[i] === partType) {
+						$scope.inventory.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.partType.$remove(function() {
+					$location.path('inventory');
+				});
+			}
+		};
 
-		$scope.update = function(partType) {
-            partType.$update(function() {
-                $location.path('inventory/' + partType._id);
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
+		$scope.update = function(isValid) {
+			if (isValid) {
+				$scope.success = $scope.error = null;
+				var partType = new Inventory($scope.partType);
+
+				partType.$update(function(response) {
+					$scope.success = true;
+				}, function(response) {
+					$scope.error = response.data.message;
+				});
+			} else {
+				$scope.submitted = true;
+			}
+		};
 
 		$scope.updateQuantity = function (partType, newVal){
 			// only for parts that do NOT use part schema
-            partType.quantity = newVal;
-            partType.$update(partType, function (errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
+			partType.quantity = newVal;
+			partType.$update(partType, function (errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
-        $scope.find = function() {
-            $scope.inventory = Inventory.query();
-        };
+		$scope.find = function() {
+			$scope.inventory = Inventory.query();
+		};
 
-        $scope.findOne = function() {
-            $scope.partType = Inventory.get({
-                partId: $stateParams.partId
-            });
-        };
-    }
+		$scope.findOne = function() {
+			$scope.partType = Inventory.get({
+				partId: $stateParams.partId
+			});
+		};
+	}
 ]);
