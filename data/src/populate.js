@@ -20,6 +20,15 @@ PartType.count({}, function(err, count) {
     }
 });
 
+/* Deletes old partType collection */
+PartType.count({Manufacturer: 'AICSYS'}, function(err, count) {
+    if(count){
+        PartType.remove({}, function(err) {
+            console.log('Changing PartType attributes, rerun grunt to populate...');
+        });
+    }
+});
+
 /*Check if PartType is already populated */
 PartType.count({}, function(err, count){
     if (err) return console.log(err);
