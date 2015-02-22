@@ -18,5 +18,5 @@ module.exports = function(app) {
 
 
     // Finish by binding the article middleware
-    //app.param('id', partType.id);
+    app.param('partId', partType.partTypeByID);
 };

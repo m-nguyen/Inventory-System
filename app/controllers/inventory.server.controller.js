@@ -87,6 +87,7 @@ exports.add = function(req, res) {
     });
 };
 
+
 /**
  * List of PartTypes
  */
@@ -116,7 +117,7 @@ exports.partTypeByID = function(req, res, next, id) {
 		});
 	}
 
-	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, partType) {
+	PartType.findById(id).exec(function(err, partType) {
 		if (err) return next(err);
 		if (!partType) {
 			return res.status(404).send({

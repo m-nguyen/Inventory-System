@@ -1,18 +1,17 @@
 <section data-ng-controller="InventoryController" data-ng-init="find()">
 	<div class="page-header">
-		<h1>Create A New Part</h1>
+		<h1>Create a new part</h1>
 	</div>
 	<div>
 		<form ng-submit="create()">
 			<div class="form-group">
 			<strong>Category:</strong>
 			<div class="radio">
-				<label><input type="radio" ng-model="Category" value="maincomponent" id="category1" checked> Main Component</label><br>
-				<label><input type="radio" ng-model="Category" value="fastener" id="category2"> Fasteners and Mounting Hardware</label><br>
-				<label><input type="radio" ng-model="Category" value="cable" id="category3">  Cables and Wires </label><br>
-				<label><input type="radio" ng-model="Category" value ="label" id="category4"> K-sun Labels </label><br>
-				<label><input type="radio" ng-model="Category" value="external" id="category5"> External Components</label><br>
-
+				<label><input name="category" type="radio" ng-model="Category" value="maincomponent" id="category1" checked> Main Component</label><br>
+				<label><input name="category" type="radio" ng-model="Category" value="fastener" id="category2"> Fasteners and Mounting Hardware</label><br>
+				<label><input name="category" type="radio" ng-model="Category" value="cable" id="category3">  Cables and Wires </label><br>
+				<label><input name="category" type="radio" ng-model="Category" value ="label" id="category4"> K-sun Labels </label><br>
+				<label><input name="category" type="radio" ng-model="Category" value="external" id="category5"> External Components</label><br>
 			</div>
 			<div class="form-group">
 				<label for="partName">Part Name: </label><input class="form-control" ng-model="partName" type="text" name="partName" id="partName" />
@@ -30,7 +29,7 @@
 				<label for="mnfPartNmbr">Manufacturer Part Number: </label> <input class="form-control" ng-model="mnfPartNmbr" type="text" name="mnfPartNmbr" id="mnfPartNmbr" />
 			</div>
 			<div class="form-group">
-				<label for="price">Price (US Dollars): </label> <input class="form-control" type="text" ng-model="price" name="price" id="price" />
+				<label for="price">Price: </label> <div class="input-group"><div class="input-group-addon">$</div><input class="form-control" type="text" ng-model="price" name="price" id="price" /></div>
 			</div>
 			<div class="form-group">
 				<label for="amount">Quantity (per system):  <input class="form-control" type="text" ng-model="amount" name="amount" id="amount" />
