@@ -72,7 +72,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 				$scope.update(partType);
 				$location.path('#!/inventory');
 			}
-		}
+		};
 		
 		
         $scope.find = function() {
