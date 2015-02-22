@@ -1,16 +1,16 @@
-'use strict';
+    'use strict';
 
 /**
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+    Schema = mongoose.Schema;
 
 /**
  * Part type schema
  */
 var partTypeSchema = new Schema({
-	Category: {
+	category: {
 		type: String,
 		default: 'N/A',
 		trim: true,
@@ -22,7 +22,7 @@ var partTypeSchema = new Schema({
 		trim: true,
 		required: 'Part must have a name'
 	},
-	Vendor: {
+	vendor: {
 		type: String,
 		default: 'N/A',
 		trim: true
@@ -32,7 +32,7 @@ var partTypeSchema = new Schema({
 		default: 'N/A',
 		trim: true
 	},
-	Manufacturer: {
+	manufacturer: {
 		type: String,
 		default: 'N/A',
 		trim: true
@@ -47,10 +47,19 @@ var partTypeSchema = new Schema({
 		default: 0,
 		required: 'Part must have a price'
 	},
-	amount: {
+	GX5_amount: {
 		type: Number,
-		default: 1,
-		required: 'Part must have an amount'
+		default: 0,
+		required: 'Part Must have an amount'
+	},
+	GX35_amount: {
+		type: Number,
+		default: 0,
+		required: 'Part Must have an amount'
+	},
+	quantity: {
+		type: Number,
+		default: 0
 	}
 });
 

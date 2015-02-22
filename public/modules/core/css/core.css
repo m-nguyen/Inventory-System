@@ -18,3 +18,15 @@ body.ng-cloak
 {
 	display: block;
 }
+
+.action-list li{
+	padding: 10px;
+}
+
+.action-list li *{
+	min-width:150px;
+}
+
+.dull-field{
+	opacity:.5;
+}

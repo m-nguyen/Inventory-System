@@ -3,7 +3,6 @@
 /////////////////////////////////////////////////////////////
 var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
-    Inventory   = mongoose.model('Inventory'),
     data        = require('../partType.json');
 
 var err, el;
@@ -11,6 +10,15 @@ function errorHandler(err, el){
     if (err) console.log(err);
     //else console.log(el + ' added to database');
 }
+
+/* Deletes old partType collection */
+PartType.count({}, function(err, count) {
+    if(count >= 102 ){
+        PartType.remove({}, function(err) {
+            console.log('Changing PartType attributes, rerun grunt to populate...');
+        });
+    }
+});
 
 /*Check if PartType is already populated */
 PartType.count({}, function(err, count){
@@ -21,9 +29,6 @@ PartType.count({}, function(err, count){
             /* Save partType */
             var partType = new PartType(data[i]);
             partType.save(errorHandler(err, partType));
-            /* Save partType to inventory */
-            var inventory = new Inventory({ Type: partType._id, quantity: 0});
-            inventory.save(errorHandler(err, inventory));
         }
         console.log('MongoDB has been populated...');
     } else {

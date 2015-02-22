@@ -3,25 +3,24 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-	errorHandler = require('./errors.server.controller'),
-	PartType = mongoose.model('PartType'),
-	_ = require('lodash');
+var mongoose        = require('mongoose'),
+	errorHandler    = require('./errors.server.controller'),
+    PartType        = mongoose.model('PartType'),
+	_               = require('lodash');
 
 /**
  * Create a PartType
  */
 exports.create = function(req, res) {
-	var PartType = new PartType(req.body);
-	//PartType.user = req.user;
+	var partType = new PartType(req.body);
 
-	PartType.save(function(err) {
+	partType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
@@ -30,24 +29,24 @@ exports.create = function(req, res) {
  * Show the current PartType
  */
 exports.read = function(req, res) {
-	res.json(req.PartType);
+	res.json(req.partType);
 };
 
 /**
  * Update a PartType
  */
 exports.update = function(req, res) {
-	var PartType = req.PartType;
+	var partType = req.partType;
 
-	PartType = _.extend(PartType, req.body);
+	partType = _.extend(partType, req.body);
 
-	PartType.save(function(err) {
+	partType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
@@ -56,30 +55,53 @@ exports.update = function(req, res) {
  * Delete an PartType
  */
 exports.delete = function(req, res) {
-	var PartType = req.PartType;
+	var partType = req.partType;
 
-	PartType.remove(function(err) {
+	partType.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
 
 /**
+ * Add to PartType quantity
+ */
+exports.add = function(req, res) {
+    var partType = req.partType,
+        query = { _id : partType._id},
+        update = {$set: {quantity: partType.quantity + 1}};
+
+    partType.update(query, update, function (err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.json(partType);
+        }
+    });
+};
+
+
+/**
  * List of PartTypes
  */
 exports.list = function(req, res) {
-	PartType.find().sort('-created')/*.populate('user', 'displayName')*/.exec(function(err, PartTypes) {
+    /**
+     * This needs to be fixed
+     */
+	PartType.find()/*.sort('-created').populate('user', 'displayName')*/.exec(function(err, partTypes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartTypes);
+			res.json(partTypes);
 		}
 	});
 };
@@ -87,7 +109,7 @@ exports.list = function(req, res) {
 /**
  * PartType middleware
  */
-exports.PartTypeByID = function(req, res, next, id) {
+exports.partTypeByID = function(req, res, next, id) {
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(400).send({
@@ -95,26 +117,26 @@ exports.PartTypeByID = function(req, res, next, id) {
 		});
 	}
 
-	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, PartType) {
+	PartType.findById(id).exec(function(err, partType) {
 		if (err) return next(err);
-		if (!PartType) {
+		if (!partType) {
 			return res.status(404).send({
   				message: 'PartType not found'
   			});
 		}
-		req.PartType = PartType;
+		req.partType = partType;
 		next();
 	});
 };
 
 /**
  * PartType authorization middleware
- */
+ 
 exports.hasAuthorization = function(req, res, next) {
 	/*if (req.PartType.user.id !== req.user.id) {
 		return res.status(403).send({
 			message: 'User is not authorized'
 		});
-	}*/
+	}
 	next();
-};
+};*/
