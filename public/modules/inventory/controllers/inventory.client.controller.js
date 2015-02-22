@@ -52,7 +52,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 
 		$scope.update = function(partType) {
             partType.$update(function() {
-                //$location.path('inventory/' + partType._id);
+                $location.path('inventory/' + partType._id);
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
@@ -60,14 +60,12 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 
 		$scope.updateQuantity = function (partType, newVal){
 			// only for parts that do NOT use part schema
-			if(true){
-				partType.quantity = newVal;
-				$scope.update(partType);
-				//$location.path('/inventory');
-			}
+            partType.quantity = newVal;
+            partType.$update(partType, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
         };
-		
-		
+
         $scope.find = function() {
             $scope.inventory = Inventory.query();
         };
