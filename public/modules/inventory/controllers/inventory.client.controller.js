@@ -52,27 +52,20 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 
 		$scope.update = function(partType) {
             partType.$update(function() {
-                $location.path('inventory/' + partType._id);
+                //$location.path('inventory/' + partType._id);
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
         };
-		
-        // $scope.add = function(partType) {
-            // if (partType) {
-                // partType.$add();
-            // }
-        // };
 
-		// Set quantity of partType to newVal
 		$scope.updateQuantity = function (partType, newVal){
 			// only for parts that do NOT use part schema
 			if(true){
 				partType.quantity = newVal;
 				$scope.update(partType);
-				$location.path('#!/inventory');
+				//$location.path('/inventory');
 			}
-		}
+        };
 		
 		
         $scope.find = function() {
