@@ -1,43 +1,81 @@
-<section data-ng-controller="InventoryController" data-ng-init="find()">
+<section>
 	<div class="page-header">
 		<h1>Create a new part</h1>
 	</div>
 	<div>
-		<form ng-submit="create()">
+		<form ng-submit="create()" ng-controller="InventoryController">
 			<div class="form-group">
 			<strong>Category:</strong>
 			<div class="radio">
-				<label><input name="category" type="radio" ng-model="Category" value="maincomponent" id="category1" checked> Main Component</label><br>
-				<label><input name="category" type="radio" ng-model="Category" value="fastener" id="category2"> Fasteners and Mounting Hardware</label><br>
-				<label><input name="category" type="radio" ng-model="Category" value="cable" id="category3">  Cables and Wires </label><br>
-				<label><input name="category" type="radio" ng-model="Category" value ="label" id="category4"> K-sun Labels </label><br>
-				<label><input name="category" type="radio" ng-model="Category" value="external" id="category5"> External Components</label><br>
+				<label>
+					<input name="category" type="radio" ng-model="partType.category" value="maincomponent" id="category1" checked />
+					Main Component
+				</label><br>
+				<label>
+					<input name="category" type="radio" ng-model="partType.category" value="fastener" id="category2" />
+					Fasteners and Mounting Hardware
+				</label><br>
+				<label>
+					<input name="category" type="radio" ng-model="partType.category" value="cable" id="category3" />
+					 Cables and Wires
+				</label><br>
+				<label>
+					<input name="category" type="radio" ng-model="partType.category" value="label" id="category4" />
+					K-sun Labels
+				</label><br>
+				<label>
+					<input name="category" type="radio" ng-model="partType.category" value="external" id="category5" />
+					External Components
+				</label><br>
+			</div>
 			</div>
 			<div class="form-group">
-				<label for="partName">Part Name: </label><input class="form-control" ng-model="partName" type="text" name="partName" id="partName" />
+				<label for="partName">Part Name: </label>
+				<input class="form-control" ng-model="partType.partName" type="text" name="partName" id="partName" />
 			</div>
 			<div class="form-group">
-				<label for="vendor">Vendor: </label><input class="form-control" ng-model="Vendor" type="text" name="Vendor" id="vendor" />
+				<label for="vendor">Vendor: </label>
+				<input class="form-control" ng-model="partType.vendor" type="text" name="vendor" id="vendor" />
 			</div>
 			<div class="form-group">
-				<label for="vndrPartNmbr">Vendor Part Number: </label><input class="form-control" ng-model="vndrPartNmbr" type="text" name="vndrPartNmbr" id="vndrPartNmbr" />
+				<label for="vndrPartNmbr">Vendor Part Number: </label>
+				<input class="form-control" ng-model="partType.vndrPartNmbr" type="text" name="vndrPartNmbr" id="vndrPartNmbr" />
 			</div>
 			<div class="form-group">
-				<label for="manufacturer">Manufacturer: </label><input class="form-control" ng-model="Manufacturer" type="text" name="Manufacturer" id="manufacturer"/>
+				<label for="manufacturer">Manufacturer: </label>
+				<input class="form-control" ng-model="partType.manufacturer" type="text" name="manufacturer" id="manufacturer"/>
 			</div>
 			<div class="form-group">
-				<label for="mnfPartNmbr">Manufacturer Part Number: </label> <input class="form-control" ng-model="mnfPartNmbr" type="text" name="mnfPartNmbr" id="mnfPartNmbr" />
+				<label for="mnfPartNmbr">Manufacturer Part Number: </label>
+				<input class="form-control" ng-model="partType.mnfPartNmbr" type="text" name="mnfPartNmbr" id="mnfPartNmbr" />
 			</div>
 			<div class="form-group">
-				<label for="price">Price: </label> <div class="input-group"><div class="input-group-addon">$</div><input class="form-control" type="text" ng-model="price" name="price" id="price" /></div>
+				<label for="price">Price: </label>
+				<div class="input-group">
+					<div class="input-group-addon">$</div>
+					<input class="form-control" type="text" ng-model="partType.price" name="price" id="price" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4">
+					<label for="amount">Quantity (available now):</label>
+					<input class="form-control" type="text" ng-model="partType.quantity" name="quantity" id="quantity" />
+				</div>
+				<div class="col-md-4">
+					<label for="amount">Required for GX 35:</label>
+					<input class="form-control" type="text" ng-model="partType.GX35_amount" name="GX35_amount" id="GX35_amount" />
+				</div>
+				<div class="col-md-4">
+					<label for="amount">Required for GX 5:</label>
+					<input class="form-control" type="text" ng-model="partType.GX5_amount" name="GX5_amount" id="GX5_amount" />
+				</div>
 			</div>
 			<div class="form-group">
-				<label for="amount">Quantity (per system):  <input class="form-control" type="text" ng-model="amount" name="amount" id="amount" />
+				<input id="create-event-button" type="submit" class="btn btn-primary" />
+			</div>
+			<div data-ng-show="error" class="text-danger">
+				<strong data-ng-bind="error"></strong>
 			</div>
 		</form>
-	</div>
-
-	<div class="form-group">
-		<input id="create-event-button" type="submit" class="btn btn-default">
 	</div>
 </section>

@@ -1,35 +1,81 @@
 <section data-ng-controller="InventoryController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Update Part Quantity</h1>
-    </div>
-    <div class="col-md-12">
-        <form name="articleForm" class="form-horizontal" data-ng-submit="update(articleForm.$valid)" novalidate>
-            <fieldset>
-                <div class="form-group" ng-class="{ 'has-error' : submitted && articleForm.title.$invalid}">
-                    <label class="control-label" for="title">Title</label>
-                    <div class="controls">
-                        <input name="title" type="text" data-ng-model="article.title" id="title" class="form-control" placeholder="Title" required>
-                    </div>
-                    <div ng-show="submitted && articleForm.title.$invalid" class="help-block">
-                        <p ng-show="articleForm.title.$error.required" class="text-danger">Title is required</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : submitted && articleForm.content.$invalid}">
-                    <label class="control-label" for="content">Content</label>
-                    <div class="controls">
-                        <textarea name="content" data-ng-model="article.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content" required></textarea>
-                    </div>
-                    <div ng-show="submitted && articleForm.content.$invalid" class="help-block">
-                        <p ng-show="articleForm.content.$error.required" class="text-danger">Content is required</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
-                </div>
-                <div data-ng-show="error" class="text-danger">
-                    <strong data-ng-bind="error"></strong>
-                </div>
-            </fieldset>
-        </form>
-    </div>
+	<div class="page-header">
+		<h1>Edit Part Type</h1>
+	</div>
+	<div>
+		<form name="inventoryForm" data-ng-submit="update(inventoryForm.$valid)" novalidate>
+			<div class="form-group">
+				<strong>Category:</strong>
+				<div class="radio">
+					<label>
+						<input name="category" type="radio" ng-model="partType.category" value="maincomponent" id="category1" checked />
+						Main Component
+					</label><br>
+					<label>
+						<input name="category" type="radio" ng-model="partType.category" value="fastener" id="category2" />
+						Fasteners and Mounting Hardware
+					</label><br>
+					<label>
+						<input name="category" type="radio" ng-model="partType.category" value="cable" id="category3" />
+						 Cables and Wires
+					</label><br>
+					<label>
+						<input name="category" type="radio" ng-model="partType.category" value="label" id="category4" />
+						K-sun Labels
+					</label><br>
+					<label>
+						<input name="category" type="radio" ng-model="partType.category" value="external" id="category5" />
+						External Components
+					</label><br>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="partName">Part Name: </label>
+				<input class="form-control" ng-model="partType.partName" type="text" name="partName" id="partName" />
+			</div>
+			<div class="form-group">
+				<label for="vendor">Vendor: </label>
+				<input class="form-control" ng-model="partType.vendor" type="text" name="vendor" id="vendor" />
+			</div>
+			<div class="form-group">
+				<label for="vndrPartNmbr">Vendor Part Number: </label>
+				<input class="form-control" ng-model="partType.vndrPartNmbr" type="text" name="vndrPartNmbr" id="vndrPartNmbr" />
+			</div>
+			<div class="form-group">
+				<label for="manufacturer">Manufacturer: </label>
+				<input class="form-control" ng-model="partType.manufacturer" type="text" name="manufacturer" id="manufacturer"/>
+			</div>
+			<div class="form-group">
+				<label for="mnfPartNmbr">Manufacturer Part Number: </label>
+				<input class="form-control" ng-model="partType.mnfPartNmbr" type="text" name="mnfPartNmbr" id="mnfPartNmbr" />
+			</div>
+			<div class="form-group">
+				<label for="price">Price: </label>
+				<div class="input-group">
+					<div class="input-group-addon">$</div>
+					<input class="form-control" type="text" ng-model="partType.price" name="price" id="price" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4">
+					<label for="amount">Quantity (available now):</label>
+					<input class="form-control" type="text" ng-model="partType.quantity" name="quantity" id="quantity" />
+				</div>
+				<div class="col-md-4">
+					<label for="amount">Required for GX 35:</label>
+					<input class="form-control" type="text" ng-model="partType.GX35_amount" name="GX35_amount" id="GX35_amount" />
+				</div>
+				<div class="col-md-4">
+					<label for="amount">Required for GX 5:</label>
+					<input class="form-control" type="text" ng-model="partType.GX5_amount" name="GX5_amount" id="GX5_amount" />
+				</div>
+			</div>
+			<div class="form-group">
+				<input id="edit-event-button" type="submit" class="btn btn-primary" />
+			</div>
+			<div data-ng-show="error" class="text-danger">
+				<strong data-ng-bind="error"></strong>
+			</div>
+		</form>
+	</div>
 </section>
