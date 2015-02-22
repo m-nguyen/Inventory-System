@@ -20,7 +20,7 @@ var partSchema = new Schema({
 		trim: true
 	},
 	Type: {
-        type: mongoose.Schema.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'PartType',
 		required: 'Part must have a type'
 	}

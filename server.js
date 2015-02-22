@@ -25,16 +25,16 @@ mongoose.connection.on('error', function(err) {
 	}
 );
 
+
+
 // Init the express application
 var app = require('./config/express')(db);
 
 // Bootstrap passport config
 require('./config/passport')();
 
-
 //Populate mongoDB
 require('./data/src/populate');
-
 
 // Start the app by listening on <port>
 app.listen(config.port);

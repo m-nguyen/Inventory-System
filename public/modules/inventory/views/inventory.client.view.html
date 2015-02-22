@@ -1,0 +1,19 @@
+<section data-ng-controller="InventoryController">
+	<head>
+		<title>Inventory-System</title>
+	</head>
+	<div class="page-header">
+		<h1>Inventory</h1>
+	</div>
+	</table>
+		<thead>
+			<th>Part Name</th>
+			<th>Quantity</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="part_type in Parts">
+				<td>{{part_type.name}}</td>
+			</tr>
+		</tbody>
+	</table>
+</section>

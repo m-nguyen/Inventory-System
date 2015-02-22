@@ -3,7 +3,6 @@
 /////////////////////////////////////////////////////////////
 var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
-    Inventory   = mongoose.model('Inventory'),
     data        = require('../partType.json');
 
 var err, el;
@@ -12,16 +11,11 @@ function errorHandler(err, el){
     //else console.log(el + ' added to database');
 }
 
-/*Remove Inventories collection from mongo*/
-/*This is temporarily here to remove inventories from your local machine*/
-/*Also changes PartType amount attribute*/
-Inventory.count({}, function(err, count) {
-    if(count){
-        Inventory.remove({}, function(err){
-            console.log('Inventory collection removed...');
-        });
+/* Deletes old partType collection */
+PartType.count({}, function(err, count) {
+    if(count >= 102 ){
         PartType.remove({}, function(err) {
-            console.log('Changing PartType attribute from amount to quantity...');
+            console.log('Changing PartType attributes, rerun grunt to populate...');
         });
     }
 });
