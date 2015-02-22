@@ -6,14 +6,6 @@ angular.module('inventory').config(['$stateProvider', '$urlRouterProvider',
 	function($stateProvider) {
 		// inventory state routing
 		$stateProvider.
-		state('addPart', {
-			url: '/inventory/add',
-			templateUrl: 'modules/inventory/views/add.client.view.html'
-		}).
-		state('removePart', {
-			url: '/inventory/:partId/remove',
-			templateUrl: 'modules/inventory/views/remove.client.view.html'
-		}).
 		state('createPart', {
 			url: '/inventory/create',
 			templateUrl: 'modules/inventory/views/create.client.view.html'
