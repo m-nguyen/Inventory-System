@@ -20,7 +20,7 @@
 		</thead>
 		<tbody >
 			<tr data-ng-repeat="partType in inventory" >
-				<td>{{partType.partName}}</td>
+				<td><a data-ng-href="#!/inventory/{{partType._id}}/edit">{{partType.partName}}<a></td>
 				<td ng-class="{'dull-field': partType.category == 'N/A'}">{{partType.category}}</td>
 				<td ng-class="{'dull-field': partType.vendor == 'N/A'}">{{partType.vendor}}</td>
 				<td ng-class="{'dull-field': partType.vndrPartNmbr == 'N/A'}">{{partType.vndrPartNmbr}}</td>
