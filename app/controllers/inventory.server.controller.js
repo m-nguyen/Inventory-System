@@ -68,25 +68,6 @@ exports.delete = function(req, res) {
 	});
 };
 
-/**
- * Add to PartType quantity
- */
-exports.add = function(req, res) {
-    var partType = req.partType,
-        query = { _id : partType._id},
-        update = {$set: {quantity: partType.quantity + 1}};
-
-    partType.update(query, update, function (err) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.json(partType);
-        }
-    });
-};
-
 
 /**
  * List of PartTypes

@@ -6,8 +6,8 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 
 		$scope.create = function() {
 			var partType = new Inventory($scope.partType);
+            $location.path('inventory');
 			partType.$save(function(response) {
-				$location.path('inventory/' + response._id + '/edit');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -33,7 +33,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 			if (isValid) {
 				$scope.success = $scope.error = null;
 				var partType = new Inventory($scope.partType);
-
+               $location.path('inventory');
 				partType.$update(function(response) {
 					$scope.success = true;
 				}, function(response) {
