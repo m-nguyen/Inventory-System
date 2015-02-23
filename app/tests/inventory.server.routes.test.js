@@ -24,7 +24,7 @@ describe('PartType CRUD tests', function() {
 			done();
 	});
 	it('should be able to save a partType', function(done) {
-		agent.post('/partTypes')
+		agent.post('/inventory')
 			.send(partType)
 			.expect(200)
 			.end(function(partTypeSaveErr, partTypeSaveRes) {
@@ -50,7 +50,7 @@ describe('PartType CRUD tests', function() {
 		// Invalidate partName field
 		partType.partName = '';
 		
-				agent.post('/partTypes')
+				agent.post('/inventory')
 					.send(partType)
 					.expect(400)
 					.end(function(partTypeSaveErr, partTypeSaveRes) {
@@ -141,7 +141,7 @@ describe('PartType CRUD tests', function() {
 	});
 
 	/*it('should be able to delete a partType', function(done) {
-				agent.post('/partTypes')
+				agent.post('/inventory')
 					.send(partType)
 					.expect(200)
 					.end(function(partTypeSaveErr, partTypeSaveRes) {
@@ -149,7 +149,7 @@ describe('PartType CRUD tests', function() {
 						if (partTypeSaveErr) done(partTypeSaveErr);
 
 						// Delete an existing partType
-						agent.delete('/partTypes/' + partTypeSaveRes.body._id)
+						agent.delete('/inventory/' + partTypeSaveRes.body._id)
 							.send(partType)
 							.expect(200)
 							.end(function(partTypeDeleteErr, partTypeDeleteRes) {
