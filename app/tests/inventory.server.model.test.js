@@ -15,7 +15,24 @@ var partType;
 /**
  * Unit tests
  */
+
 describe('PartType Model Unit Tests:', function() {
+    beforeEach(function(done) {
+        partType = new PartType({
+            category: 'Sample Category',
+            partName: 'Sample Name',
+            vendor: 'Sample Vendor',
+            vndrPartNmbr: '123',
+            manufacturer: 'Sample Manufacturer',
+            mnfPartNmbr: '456',
+            price: '12',
+            GX5_amount: '1',
+            GX35_amount: '2',
+            quantity:'3'
+        });
+            done();
+    });
+
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
 			return partType.save(function(err) {

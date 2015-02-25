@@ -170,8 +170,9 @@
             expect(scope.quantity).toEqual('');
 
 			// Test URL redirection after the partType was created
-			expect($location.path()).toBe('/inventory/' + samplePartResponse._id + '/edit');
+			expect($location.path()).toBe('/inventory');
 		}));
+
 
 		it('$scope.update() should update a valid partType', inject(function(Inventory) {
 			// Define a sample partType put data
@@ -200,7 +201,7 @@
 			$httpBackend.flush();
 
 			// Test URL location to new object
-			expect($location.path()).toBe('/inventory/' + samplePartPutData._id + '/edit');
+			expect($location.path()).toBe('/inventory');
 		}));
 
 		it('$scope.remove() should send a DELETE request with a valid partId and remove the partType from the scope', inject(function(Inventory) {
