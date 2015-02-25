@@ -49,6 +49,26 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should be able to show an error when try to save without gx5_amount or gx_35 amount', function(done) {
+			partType.GX5_amount = '';
+			partType.GX35_amount = '';
+
+			return partType.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+
+		it('should show an error when try to save without price', function(done) {
+			partType.price = '';
+
+			return partType.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) {

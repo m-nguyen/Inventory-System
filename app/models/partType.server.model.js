@@ -50,12 +50,12 @@ var partTypeSchema = new Schema({
 	GX5_amount: {
 		type: Number,
 		default: 0,
-		required: 'Part Must have an amount'
+		required: 'Part must have an amount'
 	},
 	GX35_amount: {
 		type: Number,
 		default: 0,
-		required: 'Part Must have an amount'
+		required: 'Part must have an amount'
 	},
 	quantity: {
 		type: Number,

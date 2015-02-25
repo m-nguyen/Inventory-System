@@ -72,6 +72,70 @@ describe('PartType CRUD tests', function() {
 					});
 	});
 
+	it('should not be able to save a partType if no amount is provided', function(done) {
+		// Invalidate partName field
+		partType.GX5_amount = '';
+		partType.GX35_amount = '';
+		
+				agent.post('/inventory')
+					.send(partType)
+					.expect(400)
+					.end(function(partTypeSaveErr, partTypeSaveRes) {
+						// Set message assertion
+						(partTypeSaveRes.body.message).should.match('Part must have an amount');
+						
+						// Handle partType save error
+						done(partTypeSaveErr);
+					});
+	});
+
+	it('should not be able to save a partType if invalid amount', function(done) {
+		// Invalidate partName field
+		partType.GX5_amount = 'amount';
+		partType.GX35_amount = 'numbers';
+		
+				agent.post('/inventory')
+					.send(partType)
+					.expect(400)
+					.end(function(partTypeSaveErr, partTypeSaveRes) {
+						// Handle partType save error
+						done(partTypeSaveErr);
+					});
+	});
+
+	it('should not be able to save a partType if no price is provided', function(done) {
+		// Invalidate partName field
+		partType.price = '';
+		
+				agent.post('/inventory')
+					.send(partType)
+					.expect(400)
+					.end(function(partTypeSaveErr, partTypeSaveRes) {
+						// Set message assertion
+						(partTypeSaveRes.body.message).should.match('Part must have a price');
+						
+						// Handle partType save error
+						done(partTypeSaveErr);
+					});
+	});
+
+
+	it('should not be able to save a partType if no price is provided', function(done) {
+		// Invalidate partName field
+		partType.price = 'three hundred dollars';
+		
+				agent.post('/inventory')
+					.send(partType)
+					.expect(400)
+					.end(function(partTypeSaveErr, partTypeSaveRes) {
+						// Set message assertion
+						
+						// Handle partType save error
+						done(partTypeSaveErr);
+					});
+	});
+
+
 
 	it('should be able to update a partType', function(done) {
 				// Save a new partType
@@ -103,7 +167,51 @@ describe('PartType CRUD tests', function() {
 					});
 	});
 
+	it('should not be able to update a partType with missing information', function(done) {
+				// Save a new partType
+				agent.post('/inventory')
+					.send(partType)
+					.expect(200)
+					.end(function(partTypeSaveErr, partTypeSaveRes) {
+						// Handle partType save error
+						if (partTypeSaveErr) done(partTypeSaveErr);
 
+						// Update Part Name
+						partType.partName = '';
+
+						// Update an existing partType
+						agent.put('/inventory/' + partTypeSaveRes.body._id)
+							.send(partType)
+							.expect(400)
+							.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+								// Handle partType update error
+								done(partTypeUpdateErr);
+							});
+					});
+	});
+
+	it('should not be able to update a partType with invalid information', function(done) {
+				// Save a new partType
+				agent.post('/inventory')
+					.send(partType)
+					.expect(200)
+					.end(function(partTypeSaveErr, partTypeSaveRes) {
+						// Handle partType save error
+						if (partTypeSaveErr) done(partTypeSaveErr);
+
+						// Update Part Name
+						partType.price = 'a lot of money';
+
+						// Update an existing partType
+						agent.put('/inventory/' + partTypeSaveRes.body._id)
+							.send(partType)
+							.expect(400)
+							.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+								// Handle partType update error
+								done(partTypeUpdateErr);
+							});
+					});
+	});
 	it('should be able to get a list of partTypes', function(done) {
 		// Create new partType model instance
 		var partTypeObj = new PartType(partType);
@@ -122,10 +230,7 @@ describe('PartType CRUD tests', function() {
 
 		});
 	});
-
-
-/* Veiw partType is not implemented, but we should add it */
-    /*
+    
 	it('should be able to get a single partType', function(done) {
 		// Create new partType model instance
 		var partTypeObj = new PartType(partType);
@@ -135,14 +240,14 @@ describe('PartType CRUD tests', function() {
 			request(app).get('/inventory/' + partTypeObj._id)
 				.end(function(req, res) {
 					// Set assertion
-					res.body.should.be.an.Object.with.property('title', partType.partName);
+					res.body.should.be.an.Object.with.property('partName', partType.partName);
 
 					// Call the assertion callback
 					done();
 				});
 		});
 	});
-	*/
+	
 
 	it('should return proper error for single partType which doesnt exist', function(done) {
 		request(app).get('/inventory/test')
@@ -179,6 +284,17 @@ describe('PartType CRUD tests', function() {
 							});
 					});
 	});
+
+	it('should return error for deleting partType which doesnt exist', function(done) {
+		agent.delete('/inventory/test')
+			.expect(400)
+			.end(function(req, res) {
+
+				// Call the assertion callback
+				done();
+			});
+	});
+
 
 	afterEach(function(done) {
 		PartType.remove().exec();
